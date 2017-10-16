@@ -38,6 +38,9 @@ No real docs yet, but the example should provide a starting point.
 
 ## Version history
 
+### 0.0.2
+Fixed bug in `ofxMDD::insertFrame()`
+
 ### 0.0.1
 Initial release.
 

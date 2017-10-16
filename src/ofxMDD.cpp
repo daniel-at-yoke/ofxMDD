@@ -196,6 +196,9 @@ bool ofxMDD::insertFrame(ofxMDDFrame const & frame) {
     }
 
     totalFrames = frames.size();
+    if (totalFrames == 1) {
+        totalPoints = frames[0].getNumPoints();
+    }
 
     return true;
 }

@@ -7,22 +7,29 @@
 // Module name used for log messages
 #define OFX_MDD_MODULE_LOG_NAME "ofxMDD"
 
-class ofxMDD {
+class ofxMDD
+{
 public:
-    struct NoFrameException : public exception {
-        const char * what () const throw () {
+    struct NoFrameException : public exception
+    {
+        const char *what() const throw()
+        {
             return "No frame for the given query";
         }
     };
 
-    struct ReadException : public exception {
-        const char * what () const throw () {
+    struct ReadException : public exception
+    {
+        const char *what() const throw()
+        {
             return "Failed to read";
         }
     };
 
-    struct WriteException : public exception {
-        const char * what () const throw () {
+    struct WriteException : public exception
+    {
+        const char *what() const throw()
+        {
             return "Failed to read";
         }
     };
@@ -31,19 +38,21 @@ public:
 
     /// Load .mdd file from the given path
     /// Returns true on success, false otherwise (and logs a warning)
-    bool load(string path, const float pointScale = 1.f) throw(ReadException);
+    /// Throws ReadException
+    bool load(string path, const float pointScale = 1.f);
 
     /// Save .mdd file at the given path
-    bool save(string path, const float pointScale = 1.f) throw(WriteException);
+    /// Throws WriteException
+    bool save(string path, const float pointScale = 1.f);
 
     /// Insert a frame into this MDD's frames. Returns false if point counts do not match.
-    bool insertFrame(ofxMDDFrame const & frame);
+    bool insertFrame(ofxMDDFrame const &frame);
 
     /// Insert a mesh's vertices as a frame. Returns false if point counts do not match.
     bool insertFrameFromMesh(const float timestamp, ofMesh &mesh);
 
     /// Get frame at the given index
-    ofxMDDFrame & operator[](int i);
+    ofxMDDFrame &operator[](int i);
 
     /// Get number of frames
     int getNumFrames() const;
@@ -52,7 +61,7 @@ public:
     int getNumPoints() const;
 
     /// Get frames
-    const vector<ofxMDDFrame> & getFrames() const;
+    const vector<ofxMDDFrame> &getFrames() const;
 
     /// Get the timestamp of the first frame
     const float getFirstFrameTime() const;
@@ -75,10 +84,11 @@ public:
     int getFrameIndexAtTime(float time);
 
     /// Get frame at the given time offset. Returns nullptr if there are no frames
-    ofxMDDFrame * getFrameAtTime(float time);
+    ofxMDDFrame *getFrameAtTime(float time);
 
     /// Get a linearly interpolated frame at the given time offset. Throws NoFrameException if there are no frames
-    ofxMDDFrame getInterpolatedFrameAtTime(float time) throw(NoFrameException);
+    /// Throws NoFrameException
+    ofxMDDFrame getInterpolatedFrameAtTime(float time);
 
 private:
     unsigned int totalFrames;
